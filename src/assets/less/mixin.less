@@ -1,0 +1,33 @@
+@font-gray:#898989;
+@font-black:#282828;
+
+.border-1px(@color) {
+  position: relative;
+  &:after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    content: "";
+    display: block;
+    border-top: .5px solid @color;/*no*/
+    width: 100%;
+  }
+}
+
+.bg-image(@url) {
+  background-image: url("../img/@{url}.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  @media (min-device-pixel-ratio: 2),(-webkit-min-device-pixel-ratio: 2) {
+    background-image:  url("../img/@{url}@2x.png");
+  }
+  @media (min-device-pixel-ratio: 3),(-webkit-min-device-pixel-ratio: 3) {
+    background-image: url("../img/@{url}@3x.png");
+  }
+}
+
+.border-none() {
+  &:after {
+    display: none;
+  }
+}
