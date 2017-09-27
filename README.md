@@ -11,31 +11,14 @@
 npm install
 //建议将仓库源换淘宝的源，再进行安装，速度较快。
 npm config set registry https://registry.npm.taobao.org
-```    
-* 配置px2rem单位
-
-设计图宽度为`375` 则跳过此步骤。
 ```
-|--build
-    |--utils.js
-```
-```
-23      var px2remLoader = {
-24        loader: 'px2rem-loader',
-25        options: {
-26          remUnit: 37.5  
-27        }
-28      }
-```
-将`remUnit`值改为` 设计图宽度/100 ` 。
-公司UI设计图一般都是```375```,则不用修改。
 
 * 配置dev服务
 ```
 |--config
     |--index.js
 ```
-```  
+```
     ......
 24    dev: {
 25        env: require('./dev.env'),
@@ -44,7 +27,7 @@ npm config set registry https://registry.npm.taobao.org
 28        assetsSubDirectory: 'static',
 29        assetsPublicPath: '/',
 30        proxyTable: {
-31          '/rest': {                          
+31          '/rest': {
 32             target: 'http://192.168.0.119:8084', //配置转发地址，以/rest开头的地址都会转发到这个地址上。可配置多个。
 33             pathRewrite: {
 34              '^/rest': '/'
@@ -56,20 +39,16 @@ npm config set registry https://registry.npm.taobao.org
 
 * 运行项目
 ```
-npm run dev 
+npm run dev
 
 在src 中开始编写代码
 ```
 
 ## 项目说明
-此项目用于开发公司H5单页应用项目，使用Vue为基本框架进行组件化开发。
 * [目录结构](#contents)
 * [Webpack配置](#webpack)
 * [less、sass、stylus等编译工具配置](#tools)
 * [Eslint配置](#eslint)
-* [移动端适配](#viewport)
-* [1像素边框](#1px)
-* [背景图引入](#backgroundImage)
 * [字体图标使用](#fonticon)
 * [移动端常用字体](#fonts)
 * [组件化开发](#component)
@@ -91,40 +70,36 @@ npm run dev
 |   |-- check-version.js             // 检查node、npm等版本
 |   |-- dev-client.js                // 热重载相关
 |   |-- dev-server.js                // 构建本地服务器
-|   |-- utils.js                     // 构建工具相关,用于配置各类loader          
+|   |-- utils.js                     // 构建工具相关,用于配置各类loader
 |   |-- webpack.base.conf.js         // webpack基础配置
 |   |-- webpack.dev.conf.js          // webpack开发环境配置
 |   |-- webpack.prod.conf.js         // webpack生产环境配置
 |   |-- webpack.test.conf.js         // webpack项目测试配置
 |-- config                           // 项目开发环境配置
 |   |-- dev.env.js                   // 开发环境变量
-|   |-- index.js                     // 项目变量配置，运行端口配置，代理转发配置   
+|   |-- index.js                     // 项目变量配置，运行端口配置，代理转发配置
 |   |-- prod.env.js                  // 生产环境变量
 |   |-- test.env.js                  // 测试环境变量
-|-- src                              // 源码目录,存放需webpack编译打包的资源      
+|-- src                              // 源码目录,存放需webpack编译打包的资源
 |   |-- assets                       // 项目公共资源
 |       |-- fonts                    // 字体文件，常用于字体图标
 |       |-- images                   // 图片资源
 |       |-- js                       // 公共js资源
 |       |-- less                     // 公共样式资源 less
 |   |-- components                   // 存放vue公共组件
-|   |-- utils                        // 使用到的工具类js 
+|   |-- utils                        // 使用到的工具类js
 |   |-- router                       // Vue路由文件
 |   |-- views                        // 存放vue路由页面
 |   |-- App.vue                      // vue根入口组件
 |   |-- main.js                      // app入口文件，webpack打包入口，加载各种公共组件
 |-- static                           // 静态文件资源，存放无需编译打包可直接引用的文件，如min.js css 较大的图片等
-|-- product                          // 部署环境目录
-|   |-- dist                         // 项目打包后生成的静态资源
-|   |-- app.js                       // 测试、生产环境所使用的node的web服务文件，**需配置端口号，转发规则等**。
-|   |-- package.json                 // 此为node服务所需依赖，项目所需依赖不在此处。部署时，需要安装所需依赖。
 |-- .babelrc                         // ES6语法编译配置
 |-- .editorconfig                    // 定义代码格式
 |-- .gitignore                       // git上传需要忽略的文件格式
 |-- .eslintignore                    // eslint代码风格规范检查忽略的文件
 |-- .eslintrc.js                     // eslint配置文件，用于配置规则等
 |-- README.md                        // 项目说明
-|-- favicon.ico                      
+|-- favicon.ico
 |-- index.html                       // 入口页面
 |-- package.json                     // 项目基本信息
 .
@@ -157,7 +132,7 @@ npm run dev
     |--build
         |--utils
 ```
-在该文件中进行相关loader配置，本项目已配置less、sass、stylus的loader工具，无需再进行配置。直接安装相关依赖即可使用。 如 
+在该文件中进行相关loader配置，本项目已配置less、sass、stylus的loader工具，无需再进行配置。直接安装相关依赖即可使用。 如
 ```
 npm install less --save-dev
 npm install less-loader --save-dev
@@ -170,7 +145,7 @@ npm install less-loader --save-dev
 Errors:
   1  http://eslint.org/docs/....
 ```
-可直接根据提示网址查看错误规则。此处不再一一赘述。  
+可直接根据提示网址查看错误规则。此处不再一一赘述。
 在`根目录下 .eslintrc.js`中可配置自定义规则。
 如使用Google的规范[ Google JavaScript style](https://github.com/google/eslint-config-google)可进行如下配置
 ```
@@ -187,97 +162,6 @@ npm install --save-dev eslint eslint-config-google
 
 ```
 有需要增加的规则在`rules`中添加，具体规则见[Eslint规则](https://eslint.org/docs/rules/)
-
-<span id="viewport"></span>
-### 适配方案
-此项目采用rem适配，使用手机淘宝flexible + px2remLoader来实现。配置完成可直接写设计图上的大小，免去换算，便于开发。
-flexible的思路是根据不同像素比来设置meta标签，计算`rem = width / 10`。具体实现可见源码。px2rem是一个lodaer工具，根据设置的单位将px转为rem  `rem = px / remUnit`.
-因此所需设置的就是根据设计图宽度`remUnit = 设计图宽度 / 10`来实现免换算，保证在不同设备下布局一致。
-```
-|-- build
-    |-- utils.js
-```
-```
-23      var px2remLoader = {
-24        loader: 'px2rem-loader',
-25        options: {
-26          remUnit: XXX  
-27        }
-28      }
-```
-另外， 我们可以通过 `/* no */`来实现局部不转换，如设置1px的边框
-```
-    border: 1px solid #000; /* no */
-```
-
-<span id="1px"></span>
-### 1像素边框
-1像素边框有多种实现方案，此项目使用伪元素来实现，是兼容性较好，代码简单、使用较多一种。但也有一定局限，无法实现圆角，元素本身有伪元素时无法直接使用。
-实现代码在
-```
-|-- src
-    |-- assets
-        |--less
-            |-- mixin.less
-            |-- base.less
-```
-`mixin.less`中 
-```
-.border-1px(@color) {
-  position: relative;
-  &:after {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    content: "";
-    display: block;
-    border-top: 1px solid @color;/*no*/
-    width: 100%;
-  }
-}
-```
-`base.less`中，根据不同像素比来进行缩放，使得最终得到1物理像素的边框。
-```
-@media (min-device-pixel-ratio: 2),(-webkit-min-device-pixel-ratio: 2) {
-  .border-1px {
-    &:after {
-      transform: scaleY(0.5);
-      -webkit-transform: scaleY(0.5);
-    }
-  }
-}
-
-@media (min-device-pixel-ratio: 3),(-webkit-min-device-pixel-ratio: 3) {
-  .border-1px {
-    &:after {
-      transform: scaleY(0.333333333333333333);
-      -webkit-transform: scaleY(0.333333333333333333);
-    }
-  }
-}
-```
-通过`.border-1px(颜色);`来为元素添加底边框，如需要其他边框同理。
-
-
-<span id="backgroundImage"></span>
-### 背景图引入
-UI设计师会提供3种大小的图片，保证不同设备下能展示出最佳的效果。为书写简便，在`mixin.less`中写好混合。
-
-```
-.bg-image(@url) {
-  background-image: url("../img/@{url}.png");
-  background-size: 100%;
-  background-repeat: no-repeat;
-  @media (min-device-pixel-ratio: 2),(-webkit-min-device-pixel-ratio: 2) {
-    background-image:  url("../img/@{url}@2x.png");
-  }
-  @media (min-device-pixel-ratio: 3),(-webkit-min-device-pixel-ratio: 3) {
-    background-image: url("../img/@{url}@3x.png");
-  }
-}
-
-```
-即可使用`.bg-image(@url);`来插入背景图。根据需要修改上面代码。
 
 <span id="fonticon"></span>
 ### 字体图标使用
@@ -417,25 +301,11 @@ const router = new Router({
 <span id="product"></span>
 ### 打包部署
 
-1. 执行
+执行
 ```
 npm run build
 ```
-进行编译，在`product/`中生成`dist`目录，即项目资源。公司web服务由前端负责，做路由与转发的工作。项目使用node作为web服务，需要编写一定代码。基本功能已在`product/app.js`中实现，配置好转发地址即可使用。
-
-2. 将`product`目录上传到服务器中,或压缩tar/zip等上传。
-3. 若无node，先安装node。地址：[https://nodejs.org/en/download/]。
-4. 下载web服务所需依赖，执行
-
-```
-npm install
-```
-5. 使用 pm2 启动服务。若无pm2执行 `npm install -g pm2`安装。在项目根目录中执行
-```
-pm2 start app.js --name (项目名称)
-```
-执行成功会看到pm2列表中有该项目。
-更多pm2操作参考[文档](https://github.com/Unitech/pm2)
+进行编译，生成`dist`目录，即静态资源。
 
 ## 常见问题
 *****
@@ -454,7 +324,7 @@ server.ext({
     if (!response.isBoom) {  // 如果状态正常则继续返回
       return reply.continue();
     }
-    if ((/^\/api/).test(request.path) || '/favicon.ico' === request.path) { 
+    if ((/^\/api/).test(request.path) || '/favicon.ico' === request.path) {
     // 以api开头的路径正常返回，用于转发正确的接口状态。
       return reply.continue();
     }
@@ -469,16 +339,3 @@ server.ext({
 *注： 在一些版本的微信浏览器会存在页面刷新的问题。由于会优先取缓存，因此不会看到空白，但会读加载条。*
 
 *注：在微信浏览器中复制地址及分享页面不会保存URL中的hash值，因此需要此功能时应当使用history模式。*
-
-### polyfill
-为兼容一些老版本浏览器，建议使用polyfill，应为这些浏览器对h5新增的js函数的兼容不是很好。具体可根据需要引入。如promise polyfill。 在`main.js `中 `require('es6-promise').polyfill()`
-### 移动端console.log
-某些问题在pc上调试时是不会出现的，需要在真机上进行调试，此时使用`vconsole`可以看到打印日志信息，便于定位问题。
-在`main.js `中
-
-```
-if (process.env.NODE_ENV === 'development') {
-   require('vconsole')
-  /* console的插件，便于在移动端查看console信息，但无法正确指向抛出位置，pc调试时可以注释掉。 */
-}
-```
